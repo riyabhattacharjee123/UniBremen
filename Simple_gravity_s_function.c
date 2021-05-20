@@ -51,7 +51,7 @@ static void mdlInitializeSizes(SimStruct *S)
     
     /* Initialize DWork vectors to save or hold parameters and variables form previous steps */
    ssSetNumDWork(S, 1);
-   ssSetDWorkWidth(S, 0, DYNAMICALLY_SIZED);
+   ssSetDWorkWidth(S, 0, -1);
    ssSetDWorkDataType(S, 0, SS_DOUBLE); 
    
 }
@@ -132,27 +132,29 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     
     int vec_size, n_sat,i;
     double param_arr_in[3], param_arr_out[3];
-       
+    //int arr[2] = {123,456}; // added for debugging purpose
+    //printf("%d", arr[1]);     // added for debugging purpose       
+  
+   
+    
     // Get parameters from inputs
     real_T * sat_position = (real_T *) ssGetInputPortRealSignal(S, 0);
-    printf("First entry: %lf \n", sat_position[0]);
-    printf("Second entry: %lf \n", sat_position[1]);
-    printf("Third entry: %lf \n", sat_position[2]);
-    printf("Fourth entry: %lf \n", sat_position[3]);
-    printf("Fifth entry: %lf \n", sat_position[4]);
-    printf("Sixth entry: %lf \n", sat_position[5]);
-    printf("Seventh entry: %lf \n", sat_position[6]);
-    printf("Eighth entry: %lf \n", sat_position[7]);
-    printf("Ninth entry: %lf \n", sat_position[8]);
-    
+   // printf("First entry: %lf \n", sat_position[0]);
+   //  printf("Second entry: %lf \n", sat_position[1]);
+   //   printf("Third entry: %lf \n", sat_position[2]);
+   //   printf("Fourth entry: %lf \n", sat_position[3]);
+   //  printf("Fiveth entry: %lf \n", sat_position[4]);
+   //   printf("Sixth entry: %lf \n", sat_position[5]);
+    //printf("%d", sat_position[7]);
      // Check whats in the input
     // Get the size of input vector
-    vec_size = sizeof(sat_position);
-    
-    printf("Size of vector: %d", sizeof (*sat_position));
+    int *vec_dim  = ssGetInputPortDimensions(S,0);
+   
+    //printf("vec: %d \n",vec_dim[0]);
+    //printf("%d", sizeof (*sat_position));
   
     // number of satellites
-    n_sat = vec_size/3;  
+    n_sat = vec_dim[0]/3;  
  
     // Define output variable  
     real_T *new_acc = (real_T *) ssGetOutputPortRealSignal(S, 0);
@@ -164,11 +166,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     {
         param_arr_in[0] = sat_position[3*i-3];
         param_arr_in[1] = sat_position[3*i-2];
-        param_arr_in[2] = sat_position[3*i-1];
-        
-        printf("param_arr_in[0]: %lf \n",  param_arr_in[0]);
-        printf(" param_arr_in[1]: %lf \n",  param_arr_in[1]);
-        printf(" param_arr_in[2]: %lf \n",  param_arr_in[2]);
+        param_arr_in[2] = sat_position[3*i-1];        
 
         // Call c-fucntion
         //simple_grav(sat_position, output);
@@ -185,10 +183,8 @@ static void mdlOutputs(SimStruct *S, int_T tid)
         new_acc[3*i-2] = param_arr_out[1];
         new_acc[3*i-1] = param_arr_out[2];
         
-        
-        
     }
-    
+    //printf("\nHELLO WORLD 222\n");
 
 }
 
