@@ -159,7 +159,7 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     // Define output variable  
     real_T *new_acc = (real_T *) ssGetOutputPortRealSignal(S, 0);
     // printf("\n HELLO WORLD 1\n"); // added for debugging purpose
-    printf("Number of satellites: %d \n",n_sat);
+    //printf("Number of satellites: %d \n",n_sat);
     
     //double output[3];    
     for (i=1; i<= n_sat; i++)
