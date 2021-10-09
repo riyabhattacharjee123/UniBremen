@@ -19,12 +19,11 @@ void simple_grav(double *pos,double *output)
     double mu;
     double r_dot_dot[3];
     double r_dot [3];
-            double r[3];
+    double r[3];
     mu = 3.986e14;
-    int i;
-    int n = 4;
+       
     // Calculate acceleration
-    // for loop for each row
+   
     
     radius_square = (pos[0]*pos[0]+pos[1]*pos[1]+pos[2]*pos[2]);
     r_dot_dot[0] = -mu/radius_square*pos[0]/sqrt(radius_square); 

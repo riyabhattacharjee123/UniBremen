@@ -166,19 +166,12 @@ static void mdlOutputs(SimStruct *S, int_T tid)
     {
         param_arr_in[0] = sat_position[3*i-3];
         param_arr_in[1] = sat_position[3*i-2];
-        param_arr_in[2] = sat_position[3*i-1];        
-
+        param_arr_in[2] = sat_position[3*i-1];  
+            
         // Call c-fucntion
         //simple_grav(sat_position, output);
         simple_grav(param_arr_in, param_arr_out);
-        
-    //    printf("\nHELLO WORLD 333\n"); // added for debugging purpose
-     //   printf("%d",param_arr_out[0]); // added for debugging purpose
-        
-        // Return calculated acceleration vector
-        //new_acc[0] = output[0];
-        //new_acc[1] = output[1];
-        //new_acc[2] = output[2];
+            
         new_acc[3*i-3] = param_arr_out[0];
         new_acc[3*i-2] = param_arr_out[1];
         new_acc[3*i-1] = param_arr_out[2];
