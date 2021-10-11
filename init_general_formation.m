@@ -235,6 +235,30 @@ for s=1:(length(r_start)/3)
     title('Ideal vs Perturbed Orbit: ECI-z: satellite- ',num2str(s))
     xlabel('Time(seconds)'), ylabel('ECI-z (metres)')
     legend('Ideal path','Perturbed path','position difference');
+    
+    % only differences in position
+    figure();
+    
+    nexttile
+    plot(ts_pos_diff_x)    
+    title('Position difference: ECI-x: satellite- ',num2str(s))
+    xlabel('Time(seconds)'), ylabel('ECI-x (metres)')
+    legend('position difference');
+    hold on;
+    
+    nexttile
+    plot(ts_pos_diff_y)    
+    title('Position difference: ECI-y: satellite- ',num2str(s))
+    xlabel('Time(seconds)'), ylabel('ECI-y (metres)')
+    legend('position difference');
+        
+    nexttile
+    plot(ts_pos_diff_z)    
+    title('Position difference: ECI-z: satellite- ',num2str(s))
+    xlabel('Time(seconds)'), ylabel('ECI-z (metres)')
+    legend('position difference'); 
+     
+     
 end
 
 
@@ -306,6 +330,29 @@ for s=1:(length(r_start)/3)
     title('Ideal vs Perturbed Orbit Velocity: ECI-z: satellite- ',num2str(s))
     xlabel('Time(seconds)'), ylabel('ECI-z (m/s)')
     legend('Ideal path','Perturbed path','velocity difference');
+    
+    % only differences in velocity
+    figure();
+    
+    nexttile
+    plot(ts_vel_diff_x)    
+    title('Velocity difference: ECI-x: satellite- ',num2str(s))
+    xlabel('Time(seconds)'), ylabel('ECI-x (m/s)')
+    legend('velocity difference');
+    hold on;
+    
+    nexttile
+    plot(ts_vel_diff_y)    
+    title('Velocity difference: ECI-y: satellite- ',num2str(s))
+    xlabel('Time(seconds)'), ylabel('ECI-y (m/s)')
+    legend('velocity difference');
+        
+    nexttile
+    plot(ts_vel_diff_z)    
+    title('Velocity difference: ECI-z: satellite- ',num2str(s))
+    xlabel('Time(seconds)'), ylabel('ECI-z (m/s)')
+    legend('velocity difference'); 
+     
 end
 
 % Acceleration in ECI-x, ECI-y, ECI-z direction
@@ -376,6 +423,29 @@ for s=1:(length(r_start)/3)
     title('Ideal vs Perturbed Orbit Acceleration: ECI-z: satellite- ',num2str(s))
     xlabel('Time(seconds)'), ylabel('ECI-z (m/s^2)')
     legend('Ideal path','Perturbed path','acceleration difference');
+    
+    % only differences in acceleration
+    figure();
+    
+    nexttile
+    plot(ts_acc_diff_x)    
+    title('Acceleration difference: ECI-x: satellite- ',num2str(s))
+    xlabel('Time(seconds)'), ylabel('ECI-x (m/s^2)')
+    legend('acceleration difference');
+    hold on;
+    
+    nexttile
+    plot(ts_acc_diff_y)    
+    title('Acceleration difference: ECI-y: satellite- ',num2str(s))
+    xlabel('Time(seconds)'), ylabel('ECI-y (m/s^2)')
+    legend('acceleration difference');
+    
+    nexttile
+    plot(ts_acc_diff_z)    
+    title('Acceleration difference: ECI-z: satellite- ',num2str(s))
+    xlabel('Time(seconds)'), ylabel('ECI-z (m/s^2)')
+    legend('acceleration difference');
+    
 end
 
 
