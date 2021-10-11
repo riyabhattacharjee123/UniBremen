@@ -176,65 +176,51 @@ for s=1:(length(r_start)/3)
     % ECI-x position
     nexttile
     pos_x_1 = position(:,(3*s-2));
-    ts_pos_x_1 = timeseries(pos_x_1,1:sim_points);
-    ts_pos_x_1.Time = ts_pos_x_1.Time - ts_pos_x_1.Time(1); 
-    plot(ts_pos_x_1)
+    
     hold on;
     pos_x_2 = position_perturbed(:,(3*s-2));
-    ts_pos_x_2 = timeseries(pos_x_2,1:sim_points1);
-    ts_pos_x_2.Time = ts_pos_x_2.Time - ts_pos_x_2.Time(1); 
-    plot(ts_pos_x_2)
+    
     
     pos_diff_x = pos_x_1 - pos_x_2;
     ts_pos_diff_x =  timeseries(pos_diff_x,1:sim_points);
     ts_pos_diff_x.Time = ts_pos_diff_x.Time - ts_pos_diff_x.Time(1); 
     plot(ts_pos_diff_x)
     
-    title('Ideal vs Perturbed Orbit: ECI-x: satellite- ',num2str(s))
+    title('Position difference: ECI-x: satellite- ',num2str(s))
     xlabel('Time(seconds)'), ylabel('ECI-x (metres)')
-    legend('Ideal path','Perturbed path','position difference');
+    legend('position difference');
 
     % ECI-y position
     nexttile
     pos_y_1 = position(:,(3*s-1));
-    ts_pos_y_1 = timeseries(pos_y_1,1:sim_points);
-    ts_pos_y_1.Time = ts_pos_y_1.Time - ts_pos_y_1.Time(1); 
-    plot(ts_pos_y_1)
-    hold on;
+    
     pos_y_2 = position_perturbed(:,(3*s-1));
-    ts_pos_y_2 = timeseries(pos_y_2,1:sim_points1);
-    ts_pos_y_2.Time = ts_pos_y_2.Time - ts_pos_y_2.Time(1); 
-    plot(ts_pos_y_2)
+   
     
     pos_diff_y = pos_y_1 - pos_y_2;
     ts_pos_diff_y =  timeseries(pos_diff_y,1:sim_points);
     ts_pos_diff_y.Time = ts_pos_diff_y.Time - ts_pos_diff_y.Time(1); 
     plot(ts_pos_diff_y)
     
-    title('Ideal vs Perturbed Orbit: ECI-y: satellite- ',num2str(s))
+    title('Position difference: ECI-y: satellite- ',num2str(s))
     xlabel('Time(seconds)'), ylabel('ECI-y (metres)')
-    legend('Ideal path','Perturbed path','position difference');
+    legend('position difference');
     
     % ECI-z position
     nexttile
     pos_z_1 = position(:,(3*s-0));
-    ts_pos_z_1 = timeseries(pos_z_1,1:sim_points);
-    ts_pos_z_1.Time = ts_pos_z_1.Time - ts_pos_z_1.Time(1); 
-    plot(ts_pos_z_1)
-    hold on;
+    
     pos_z_2 = position_perturbed(:,(3*s-0));
-    ts_pos_z_2 = timeseries(pos_z_2,1:sim_points1);
-    ts_pos_z_2.Time = ts_pos_z_2.Time - ts_pos_z_2.Time(1); 
-    plot(ts_pos_z_2)
+    
     
     pos_diff_z = pos_z_1 - pos_z_2;
     ts_pos_diff_z =  timeseries(pos_diff_z,1:sim_points);
     ts_pos_diff_z.Time = ts_pos_diff_z.Time - ts_pos_diff_z.Time(1); 
     plot(ts_pos_diff_z)
     
-    title('Ideal vs Perturbed Orbit: ECI-z: satellite- ',num2str(s))
+    title('Position difference: ECI-z: satellite- ',num2str(s))
     xlabel('Time(seconds)'), ylabel('ECI-z (metres)')
-    legend('Ideal path','Perturbed path','position difference');
+    legend('position difference');
 end
 
 
@@ -247,65 +233,52 @@ for s=1:(length(r_start)/3)
     % ECI-x Velocity
     nexttile
     vel_x_1 = velocity(:,(3*s-2));
-    ts_vel_x_1 = timeseries(vel_x_1,1:sim_points);
-    ts_vel_x_1.Time = ts_vel_x_1.Time - ts_vel_x_1.Time(1); 
-    plot(ts_vel_x_1)
+ 
     hold on;
     vel_x_2 = velocity_perturbed(:,(3*s-2));
-    ts_vel_x_2 = timeseries(vel_x_2,1:sim_points1);
-    ts_vel_x_2.Time = ts_vel_x_2.Time - ts_vel_x_2.Time(1); 
-    plot(ts_vel_x_2)
+    
     
     vel_diff_x = vel_x_1 - vel_x_2;
     ts_vel_diff_x =  timeseries(vel_diff_x,1:sim_points);
     ts_vel_diff_x.Time = ts_vel_diff_x.Time - ts_vel_diff_x.Time(1); 
     plot(ts_vel_diff_x)
     
-    title('Ideal vs Perturbed Orbit Velocity: ECI-x: satellite- ',num2str(s))
+    title('Velocity difference: ECI-x: satellite- ',num2str(s))
     xlabel('Time(seconds)'), ylabel('ECI-x (m/s)')
-    legend('Ideal path','Perturbed path','velocity difference');
+    legend('velocity difference');
 
     % ECI-y velocity
     nexttile
     vel_y_1 = velocity(:,(3*s-1));
-    ts_vel_y_1 = timeseries(vel_y_1,1:sim_points);
-    ts_vel_y_1.Time = ts_vel_y_1.Time - ts_vel_y_1.Time(1); 
-    plot(ts_vel_y_1)
-    hold on;
+    
     vel_y_2 = velocity_perturbed(:,(3*s-1));
-    ts_vel_y_2 = timeseries(vel_y_2,1:sim_points1);
-    ts_vel_y_2.Time = ts_vel_y_2.Time - ts_vel_y_2.Time(1); 
-    plot(ts_vel_y_2)
+   
     
     vel_diff_y = vel_y_1 - vel_y_2;
     ts_vel_diff_y =  timeseries(vel_diff_y,1:sim_points);
     ts_vel_diff_y.Time = ts_vel_diff_y.Time - ts_vel_diff_y.Time(1); 
     plot(ts_vel_diff_y)
     
-    title('Ideal vs Perturbed Orbit Velocity: ECI-y: satellite- ',num2str(s))
+    title('Velocity difference: ECI-y: satellite- ',num2str(s))
     xlabel('Time(seconds)'), ylabel('ECI-y (m/s)')
-    legend('Ideal path','Perturbed path','velocity difference');
+    legend('velocity difference');
     
      % ECI-z velocity
     nexttile
     vel_z_1 = velocity(:,(3*s-0));
-    ts_vel_z_1 = timeseries(vel_z_1,1:sim_points);
-    ts_vel_z_1.Time = ts_vel_z_1.Time - ts_vel_z_1.Time(1); 
-    plot(ts_vel_z_1)
-    hold on;
+    
+   
     vel_z_2 = velocity_perturbed(:,(3*s-0));
-    ts_vel_z_2 = timeseries(vel_z_2,1:sim_points1);
-    ts_vel_z_2.Time = ts_vel_z_2.Time - ts_vel_z_2.Time(1); 
-    plot(ts_vel_z_2)
+   
     
     vel_diff_z = vel_z_1 - vel_z_2;
     ts_vel_diff_z =  timeseries(vel_diff_z,1:sim_points);
     ts_vel_diff_z.Time = ts_vel_diff_z.Time - ts_vel_diff_z.Time(1); 
     plot(ts_vel_diff_z)
     
-    title('Ideal vs Perturbed Orbit Velocity: ECI-z: satellite- ',num2str(s))
+    title('Velocity difference: ECI-z: satellite- ',num2str(s))
     xlabel('Time(seconds)'), ylabel('ECI-z (m/s)')
-    legend('Ideal path','Perturbed path','velocity difference');
+    legend('velocity difference');
 end
 
 % Acceleration in ECI-x, ECI-y, ECI-z direction
@@ -317,65 +290,50 @@ for s=1:(length(r_start)/3)
     % ECI-x Acceleration
     nexttile
     acc_x_1 = acc(:,(3*s-2));
-    ts_acc_x_1 = timeseries(acc_x_1,1:sim_points);
-    ts_acc_x_1.Time = ts_acc_x_1.Time - ts_acc_x_1.Time(1); 
-    plot(ts_acc_x_1)
+   
     hold on;
     acc_x_2 = acc_perturbed(:,(3*s-2));
-    ts_acc_x_2 = timeseries(acc_x_2,1:sim_points1);
-    ts_acc_x_2.Time = ts_acc_x_2.Time - ts_acc_x_2.Time(1); 
-    plot(ts_acc_x_2)
+    
     
     acc_diff_x = acc_x_1 - acc_x_2;
     ts_acc_diff_x =  timeseries(acc_diff_x,1:sim_points);
     ts_acc_diff_x.Time = ts_acc_diff_x.Time - ts_acc_diff_x.Time(1); 
     plot(ts_acc_diff_x)
     
-    title('Ideal vs Perturbed Orbit Acceleration: ECI-x: satellite- ',num2str(s))
+    title('Acceleration difference: ECI-x: satellite- ',num2str(s))
     xlabel('Time(seconds)'), ylabel('ECI-x (m/s^2)')
-    legend('Ideal path','Perturbed path','acceleration difference');
+    legend('acceleration difference');
 
     % ECI-y Acceleration
     nexttile
     acc_y_1 = acc(:,(3*s-1));
-    ts_acc_y_1 = timeseries(acc_y_1,1:sim_points);
-    ts_acc_y_1.Time = ts_acc_y_1.Time - ts_acc_y_1.Time(1); 
-    plot(ts_acc_y_1)
-    hold on;
+   
     acc_y_2 = acc_perturbed(:,(3*s-1));
-    ts_acc_y_2 = timeseries(acc_y_2,1:sim_points1);
-    ts_acc_y_2.Time = ts_acc_y_2.Time - ts_acc_y_2.Time(1); 
-    plot(ts_acc_y_2)
+    
     
     acc_diff_y = acc_y_1 - acc_y_2;
     ts_acc_diff_y =  timeseries(acc_diff_y,1:sim_points);
     ts_acc_diff_y.Time = ts_acc_diff_y.Time - ts_acc_diff_y.Time(1); 
     plot(ts_vel_diff_y)
     
-    title('Ideal vs Perturbed Orbit Acceleration: ECI-y: satellite- ',num2str(s))
+    title('Acceleration difference: ECI-y: satellite- ',num2str(s))
     xlabel('Time(seconds)'), ylabel('ECI-y (m/s^2)')
-    legend('Ideal path','Perturbed path','acceleration difference');
+    legend('acceleration difference');
     
      % ECI-z Acceleration
     nexttile
     acc_z_1 = acc(:,(3*s-0));
-    ts_acc_z_1 = timeseries(acc_z_1,1:sim_points);
-    ts_acc_z_1.Time = ts_acc_z_1.Time - ts_acc_z_1.Time(1); 
-    plot(ts_acc_z_1)
-    hold on;
+    
+    
     acc_z_2 = acc_perturbed(:,(3*s-0));
-    ts_acc_z_2 = timeseries(acc_z_2,1:sim_points1);
-    ts_acc_z_2.Time = ts_acc_z_2.Time - ts_acc_z_2.Time(1); 
-    plot(ts_acc_z_2)
+    
     
     acc_diff_z = acc_z_1 - acc_z_2;
     ts_acc_diff_z =  timeseries(acc_diff_z,1:sim_points);
     ts_acc_diff_z.Time = ts_acc_diff_z.Time - ts_acc_diff_z.Time(1); 
     plot(ts_acc_diff_z)
     
-    title('Ideal vs Perturbed Orbit Acceleration: ECI-z: satellite- ',num2str(s))
+    title('Acceleration difference: ECI-z: satellite- ',num2str(s))
     xlabel('Time(seconds)'), ylabel('ECI-z (m/s^2)')
-    legend('Ideal path','Perturbed path','acceleration difference');
+    legend('acceleration difference');
 end
-
-
