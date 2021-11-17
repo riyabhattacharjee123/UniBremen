@@ -1,4 +1,5 @@
 % ref : https://core.ac.uk/download/pdf/4268217.pdf
+% gco_hcw_leader_follower.m%
 
 % consider a Leader_follower formation. One leader and one chaser. 
 % The leader coincides with the origin of the LVLH frame.
@@ -36,9 +37,9 @@ t = 0 ; %seconds
 alpha = deg2rad([50].'); % radians
 beta = 1.29154 ; % radians , 74 degrees
 
-c1 = rho ;
-c2 = (sqrt(3)/2)*rho;
-c3 = 0;
+c1 = 0 ; %rho ;
+c2 = 0; %(sqrt(3)/2)*rho;
+c3 = 10000; % metres
 
 n = sqrt(mu/(x_leader^3)); % mean motion of target satellite 
 theta_dot = [0 0 n].'; % rad/second angular velocity of LVLH frame wrt ECI around z-axis

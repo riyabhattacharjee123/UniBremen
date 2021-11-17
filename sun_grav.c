@@ -14,91 +14,61 @@
 
 void sun_grav(double *pos,double *acc_sun_grav)
 {   
-    double pi = 22/7;
-    double i_earth = 23.43 ; // degrees
+    double pi = 22./7;  
+    double val = pi/180;
+    double rho_sun_sat[3];
+    double sun_cood[3], part_one[3], part_two[3];
+    double mu_earth = 3.9857e+14;
+    double mu_sun = 1.32712440042e+20 ; // m^3/s^2
+    // Julian date fixed for our calculations 01.November.2021 00H:00M:00S
+    double JD = 2459519.50000;
+    double T = (JD-2451545.0)/36525.0 ;
+    //obliquity of the ecliptic. inclination of ecliptic relative to earth's equator
+    double epsilon = 23.43 ; // degrees      
+    //Mean longitude of sun (omega + OMEGA)
+    double mean_longitude = 282.94000 ;// degrees
+    // Mean anomaly of Sun. Pretending Sun orbits around Earth
+    double M = 357.5256 + 35999.049 * T ; // degree
     
-    double i_earth_rad = 23.43*pi/180 ; // radians
+    // Sun's ecliptic longitude = lambda
+    double lambda = mean_longitude + M + (6892.0/3600.0)*sin(M*val)\
+            + (72.0/3600.0)*sin(2*M*val); //degree    
+    // Sun's ecliptic distance
+    // distance between the Sun and Earth       
+    double rho_sun = (149.619 - 2.499*cos(M*val)\
+            - 0.021 * cos(2*M*val)) * 1000000000 ; // meters    
     
-    double rho_sun = 149597870000 ; // meters
-    double gamma_sun = 3.9e-14 ; // per s^2
+    sun_cood[0] = rho_sun* cos(lambda*val);
+    sun_cood[1] = rho_sun* sin(lambda*val) * cos(epsilon*val);
+    sun_cood[2] = rho_sun* sin(lambda*val) * sin(epsilon*val);    
     
-    double theta_sat = atan( pos[1]/pos[0]); // radians
-    int i,j,k;
-    double mul_1[3][3], mul_2[3][1];
+    // Heliocentric Gravitational constant of Sun = G_sun*Mass_sun
     
-    // transformation matrix along x axis inclination or earth in solar orbit
-    double transformation_matrix_x[3][3] = {
-    {1, 0, 0},
-    {0, cos(i_earth_rad), sin(i_earth_rad)},
-    {0, -sin(i_earth_rad), cos(i_earth_rad)}
-    };
+    rho_sun_sat[0] = sun_cood[0] - pos[0];
+    rho_sun_sat[1] = sun_cood[1] - pos[1];
+    rho_sun_sat[2] = sun_cood[2] - pos[2];
+    double dr_a = pow((pow(rho_sun_sat[0],2) + pow(rho_sun_sat[1],2)+ pow(rho_sun_sat[2],2)),1.5);
+    //double dr_a = pow(mag_rho_sun_sat,3);
+    double dr_b = pow((pow(sun_cood[0],2) + pow(sun_cood[1],2)+ pow(sun_cood[2],2)),1.5);
+    //double dr_b = pow(mag_rho_sun,3);
+       
+    double mag_sat_pos = sqrt(pow(pos[0],2) + pow(pos[1],2)+ pow(pos[2],2));    
     
-    double transformation_matrix_x_inverse[3][3]= {
-        {1, 0, 0},
-        {0, cos(i_earth_rad), -sin(i_earth_rad) },
-        {0, sin(i_earth_rad), cos(i_earth_rad) }
-    };
+    part_one[0] = (mu_sun/dr_a)* rho_sun_sat[0];
+     part_one[1] = (mu_sun/dr_a)* rho_sun_sat[1];
+      part_one[2] = (mu_sun/dr_a)* rho_sun_sat[2];
+      
+    part_two[0] = (mu_sun/dr_b)*sun_cood[0];
+     part_two[1] = (mu_sun/dr_b)*sun_cood[1];
+      part_two[2] = (mu_sun/dr_b)*sun_cood[2];
     
-    // second transformation is around z axis of the satellite
-    double transformation_matrix_z[3][3] = {
-    { cos(-theta_sat), 0, -sin(-theta_sat)},
-    {0,1, 0},
-    {sin(-theta_sat), 0, cos(-theta_sat)}
-    };
     
-    double transformation_matrix_z_inverse[3][3]= {
-        { cos(-theta_sat), 0, sin(-theta_sat)},
-        {0,1, 0},
-        {-sin(-theta_sat), 0, cos(-theta_sat)}
-    };
-    
-        
-    // distance between Sun and satellite
-    double rho_sun_vector[3][1] = {rho_sun, 0, 0};
-    
-    // Calculate multiplication of matrices
-    
-    // transformation_matrix_x_inverse X transformation_matrix_z_inverse = mul_1    
-    for(i=0;i< 3;i++)
-        {
-            for(j=0;j< 3;j++)
-            {
-                mul_1[i][j] = 0;
-                for(k=0;k< 3;k++)
-                    {
-                        mul_1[i][j] = mul_1[i][j] + transformation_matrix_x_inverse[i][k]*transformation_matrix_z_inverse[j][k];
-                    }
-            }
-            
-         }
-    
-    // mul_1 X rho_sun_vector[3][1] = mul_2[3][1]    
-    for ( i = 0; i < 3; ++i) 
-    {
-        for ( j = 0; j < 1; ++j)
-        {
-            mul_2[i][j] = 0; // setting the elements of the multiplied vector to zero
-        }
-    }
-    
-    for ( i = 0; i < 3; ++i)
-    {
-        for ( j = 0; j < 1; ++j) 
-        {
-            for ( k = 0; k < 3; ++k)
-            {
-                mul_2[i][j] += mul_1[i][k] * rho_sun_vector[k][j];
-            }
-        }
-    }
-    
-    // mul_2[3][1] ~ mul_2[x,y,z] gives us the elements for further calculation
-    double mul_2_x = mul_2[0][1];
-    double mul_2_y = mul_2[1][1];
-    double mul_2_z = mul_2[2][1];       
-
-    acc_sun_grav[0]= gamma_sun *  mul_2_x; // m/s^2
-    acc_sun_grav[1]= gamma_sun *  mul_2_y; // m/s^2
-	acc_sun_grav[2]= gamma_sun *  mul_2_z; // m/s^2 
-         
+    // calculate the perturbation acceleration in ECI
+    //acc_sun_grav[0]=  mu_sun *(  (rho_sun_sat[0]/dr_a) - (sun_cood[0]/dr_b) ); // m/s^2
+    //acc_sun_grav[1]=  mu_sun * ((rho_sun_sat[1]/dr_a)- (sun_cood[1]/dr_b)); // m/s^2
+	//acc_sun_grav[2]=  mu_sun *((rho_sun_sat[2]/dr_a)- (sun_cood[2]/dr_b) ); // m/s^2 
+     acc_sun_grav[0]=   part_one[0]-part_two[0];
+    acc_sun_grav[1]=  part_one[1]-part_two[1];
+    acc_sun_grav[2]=  part_one[2]-part_two[2];
+               
 }

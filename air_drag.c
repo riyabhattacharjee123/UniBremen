@@ -33,14 +33,16 @@ void air_drag(double *pos,double *vel,double *acc_drag)
     double air_drag_acc;
     double cross_product[3];
     double vel_sat_rel[3];
-    
+    radius_earth = 6371000 ; //metres
     C_D = 2.2 ; // Drag coefficient
     h = 500 ; // Kilometres
-    F10 = (70+300)/2 ;
-    Ap = 4;
+    // data given from http://www-app3.gfz-potsdam.de/kp_index/Kp_ap_Ap_SN_F107_nowcast.txt
+    // date 01 November 2021
+    F10 = 97.7 ;
+    Ap = 8;
     
     mu = 3.986e14;
-    radius_earth = 6371000 ; //metres
+   
     mass_sat = 487 ; // Kilograms 
     sat_length = 1.942 ; // metres
     sat_breadth = 3.123 ; // metres
@@ -58,27 +60,22 @@ void air_drag(double *pos,double *vel,double *acc_drag)
     rho_air = 6e-10 * exp (-(h-175)/H); // Kg/m^3
     Area_sat = sat_length * sat_breadth ;
     
-    // Calculate cross product of omega_earth and absolute position of satellite
+    // Calculate cross product of omega_earth and inertial position of satellite
 
     cross_product[0] = -omega_earth_avg*pos[1];
     cross_product[1] = -omega_earth_avg*pos[0];
     cross_product[2] = 0;
     
-    // Calculate the relative velocity of the satellite to Earth
-    //vel_sat_rel[0] = vel[0] - cross_product[0];
-     //vel_sat_rel[1] = vel[1] - cross_product[1];
-      //vel_sat_rel[2] = vel[2] - cross_product[2];
-      
-   // double vel_sat_rel_magnitude = sqrt(pow(vel_sat_rel[0],2) + pow(vel_sat_rel[1],2)+ pow(vel_sat_rel[2],2));
-
-    // Calculate the acceleration
-   // acc_drag[0]= -(1/2) * C_D * rho_air * (Area_sat/mass_sat)* vel_sat_rel_magnitude * vel_sat_rel[0]  ; // m/second^2 
-  //  acc_drag[1]= -(1/2) * C_D * rho_air * (Area_sat/mass_sat)* vel_sat_rel_magnitude * vel_sat_rel[1]  ; // m/second^2 
-   // acc_drag[2]= -(1/2) * C_D * rho_air * (Area_sat/mass_sat)* vel_sat_rel_magnitude * vel_sat_rel[2]  ; // m/second^2
+    // velocity_spacecraft_relative = velocity_spacecraft - omega_earth X position_spacecraft
+    vel_sat_rel[0] = vel[0]-cross_product[0];
+    vel_sat_rel[1] = vel[1]-cross_product[1];
+    vel_sat_rel[2] = vel[2]-cross_product[2];
     
-    double vel_mag = sqrt(pow(vel[0],2) + pow(vel[1],2)+ pow(vel[2],2));
-    acc_drag[0]= -(1/2) * C_D * rho_air * (Area_sat/mass_sat)* vel_mag * vel[0]  ; // m/second^2 
-    acc_drag[1]= -(1/2) * C_D * rho_air * (Area_sat/mass_sat)* vel_mag * vel[1]  ; // m/second^2 
-    acc_drag[2]= -(1/2) * C_D * rho_air * (Area_sat/mass_sat)* vel_mag * vel[2]  ; // m/second^2
+    // calculate the magnitude of velocity of satellite in inertial frame    
+    double vel_rel_mag = sqrt(pow(vel_sat_rel[0],2) + pow(vel_sat_rel[1],2)+ pow(vel_sat_rel[2],2)); // m/s
+    // calculate the perturbation acceleration in ECI
+    acc_drag[0]= -(1./2) * C_D * rho_air * (Area_sat/mass_sat)* vel_rel_mag * vel_sat_rel[0]  ; // m/second^2 
+    acc_drag[1]= -(1./2) * C_D * rho_air * (Area_sat/mass_sat)* vel_rel_mag * vel_sat_rel[1]  ; // m/second^2 
+    acc_drag[2]= -(1./2) * C_D * rho_air * (Area_sat/mass_sat)* vel_rel_mag * vel[2]  ; // m/second^2
     
 }

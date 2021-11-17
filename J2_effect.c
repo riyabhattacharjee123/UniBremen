@@ -35,17 +35,14 @@ void J2_effect(double *pos,double *acc_J2)
     sat_length = 1.942 ; // metres
     sat_breadth = 3.123 ; // metres
     sat_height = 0.72 ; // metres
-    int i;
-    
-    
-    // Calculate acceleration J2
-    // for loop for each row
+    int i;       
     
     R = sqrt(pos[0]*pos[0] + pos[1]*pos[1] + pos[2]*pos[2]) ; // meters
-
-    acc_J2[0]=3*J2*mu*radius_earth*radius_earth/(2 * pow(R,7))*(5*pow(acc_J2[2],2)-pow(R,2)*acc_J2[0]);
-    acc_J2[1]=3*J2*mu*radius_earth*radius_earth/(2 * pow(R,7))*(5*pow(acc_J2[2],2)-pow(R,2)*acc_J2[1]);
-	acc_J2[2]=3*J2*mu*radius_earth*radius_earth/(2 * pow(R,7))*(5*pow(acc_J2[2],2)-3*pow(R,2)*acc_J2[2]);
+    
+    // calculate the perturbation acceleration in ECI
+    acc_J2[0]=3*J2*mu*radius_earth*radius_earth/(2 * pow(R,7))*(5*pow(pos[2],2)-pow(R,2)*pos[0]);
+    acc_J2[1]=3*J2*mu*radius_earth*radius_earth/(2 * pow(R,7))*(5*pow(pos[2],2)-pow(R,2)*pos[1]);
+	acc_J2[2]=3*J2*mu*radius_earth*radius_earth/(2 * pow(R,7))*(5*pow(pos[2],2)-3*pow(R,2)*pos[2]);
 
  
          
