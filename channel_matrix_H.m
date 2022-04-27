@@ -8,7 +8,7 @@ clear all
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Universal constants used
 k_b = 1.380649*10e-23; % m^2 kg s^-1 K^-1, Boltzmann constant
-c0 = 3e8;        % m/s, propagation speed
+c0 = 3e8;        % m/s, speed of light
 
 run('D:\MSc. Project Zarm\Sample_s_function\solution_20_May\coordinates_convertor.m');
 
@@ -23,7 +23,7 @@ Nt = 3; % number of transmitting antenna
 
 SNR_dB = zeros(1,20); % dB
 counter= 1;
-for v = 10:5:100
+for v = 5:5:100
    SNR_dB(1,counter) = v;
    counter= counter+ 1;
 end
