@@ -4,8 +4,7 @@
 pi = 22/7;
 % Number of Earth station receivers
 Nr=3;
-% 01/17/2022 10:20:36 UTC
-utc = [2022 1 17 10 20 36];
+
 % Receiver Antenna locations in Lat., Lon., Alt.
 rcvr_1=[53.073635 8.806422 18]; % Bremen Uni 53°N , 8.8°E, 18m 
 rcvr_2=[53.139403 8.677612 17]; % Bremen Industriehäfen
@@ -51,7 +50,7 @@ for r1=1:size(trx_pos_eci,1)
     
 end
 
-disp(trx_pos_pol)
+%disp(trx_pos_pol)
 
 % convert Receiver position ECI to Polar coordinates
 radius_earth = 6371000 ; %metres
