@@ -1,10 +1,6 @@
 % Convert geodetic latitude, longitude, altitude (LLA) coordinates to 
 % Earth-centered inertial (ECI) coordinates
 
-pi = 22/7;
-% Number of Earth station receivers
-Nr=3;
-
 % 01/17/2022 10:20:36 UTC (MM/DD/YYYY HH:MM:SS)
 utc = [2022 1 17 10 20 36];
 
@@ -27,9 +23,9 @@ rcvr_pos_eci = [rcvr_pos_eci_1;
 % Convert ECI (cartesian) into Polar coordinates for satellite
 
 % Satellite position taken from triangle simulation Satellite position
-trx_pos_eci = [6.741288675134595e+06 1.0e+03 4.999999999999999e+02;
-    6.741288675134595e+06 -1.000000000000000e+03 4.999999999999999e+02;
-    6.740422649730810e+06 -2.121150477449814e-13 -1000];
+trx_pos_eci = [6.741288675134595e+06 -1.775767425616158e+06 6.074054240774883e+06;
+    6.741288675134595e+06 -1.771572425464163e+06 6.078467508121989e+06;
+    6.740422649730810e+06 -1.778890987893593e+06 6.072249036095161e+06];
 
 % convert Transmiter position ECI to Polar coordinates
 trx_pos_pol = []; % [r theta phi ; r theta phi];
