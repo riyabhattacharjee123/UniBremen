@@ -13,8 +13,8 @@
 %side = 1500 ; % metres , side of the equilateral Pentagon
 
 % rho = Relative distance between the centroid of the Pentagon and the 
-% --respective deputies in metres
-rho = side / (2 * cosd(54)); % metres
+% --respective deputies in metres deputies are in vertex
+rho = side / (2 * cosd(60)); % metres
 
 mu = 3.9857 *10^(14); % constant
 
@@ -38,7 +38,7 @@ zdot_leader = 0; % metres/second
 % We initialize the time, orbital angles, integration constants
 % --mean motion
 t = 0 ; %seconds
-alpha = deg2rad(9+[0 72 144 216 288].'); % radians, 9 +72  deg for the five phases each time
+alpha = deg2rad(9+[0 60 120 180 240 300].'); % radians, 9 +72  deg for the five phases each time
 beta = 1.29154 ; % radians , 74 degrees
 
 c1 = rho ;
@@ -59,14 +59,14 @@ y_c = y_0 + y_leader ; %metres in ECI-y
 z_0 = c2 * sin(n*t + alpha ) ; % metres in LVLH-z
 z_c = z_0 + z_leader ; %metres in ECI-z
 
-
 % Calculate the initial velocities of the chasers in LVLH frame using
 % --formulae in CW
 % Translate the result into ECI frame
 
 rho_eci = [x_0 y_0 z_0]; % metres distance from leader to chaser in LVLH. Matrix format
 
-rotation_term = cross(repmat(theta_dot.',5,1),rho_eci,2); % we get the rotation translation matrix
+
+rotation_term = cross(repmat(theta_dot.',6,1),rho_eci,2); % we get the rotation translation matrix
 xdot_rotation = rotation_term(:,1) ;
 ydot_rotation = rotation_term(:,2) ;
 zdot_rotation = rotation_term(:,3) ;
