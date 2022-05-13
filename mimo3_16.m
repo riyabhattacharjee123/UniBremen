@@ -1,9 +1,6 @@
 % Antenna locations
 run('receiver_antenna_locations.m')
 
-% satellite positions
-inter_satellite_distance = (50:100:50000); % meters
-
 % triangular configuration
 r_start_all_sat = []; % Initialize to null.
 v_start_all_sat = []; % Initialize to null.
@@ -31,6 +28,17 @@ for ss = 1:length(inter_satellite_distance)
    
 end
 
+figure()
+hold on;
+plot3(sat_trx_pos_eci(:,1),sat_trx_pos_eci(:,2),sat_trx_pos_eci(:,3),'bv','LineWidth',2,'MarkerSize',10);
+
+title('ECI coordinates of transmitter antennas on LEO satellites')
+rotate3d
+xlabel('ECI-x (metres)'), ylabel('ECI-y (metres)'), zlabel('ECI-z (metres)')
+legend('ECI coordinates of Tx')
+grid on;
+axis equal;
+
 figure();
 hold on;
 
@@ -39,4 +47,4 @@ xlabel("Inter satellite distance (Km)");
 ylabel("Achievable Channel Rate (R) (bps/Hz)");
 title("Achievable Channel rate vs Inter-satellite distance");
 grid on;
-legend('3X16 MIMO')
+legend('3 satellites')
