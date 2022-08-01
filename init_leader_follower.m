@@ -5,7 +5,7 @@ close all
 % FIRST is the follower
 
 % Data of chief
-r_0 = [6871000 0 0];
+r_0 = [x_leader 0 0];
 v_0 = [0 sqrt(mu/r_0(1)) 0];
 
 
@@ -20,7 +20,7 @@ r_start = [aux_p(1:3) r_0 aux_p(4:end)]
 v_start = [aux_v(1:3) v_0 aux_v(4:end)]
        
 % start model
-sim('model_plusacc2.slx')
+sim('model_plusacc.slx')
  
 % Plot orbit
 plot(position(:,1),position(:,2))

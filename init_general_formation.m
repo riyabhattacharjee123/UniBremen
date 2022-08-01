@@ -32,7 +32,7 @@ v_start = [aux_v(1:3) v_0 aux_v(4:end)]
 %------------------------------------------------------------------------------------------------%
       
 % start model
-sim('model_idealacc.slx')
+sim('model_ideal.slx')
 
 % Second satellite is the leader satellite
 sat_ref = 2;
