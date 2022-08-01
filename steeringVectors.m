@@ -65,4 +65,13 @@ sum_dft_1 = sum(dft_1(:));
 %dft_3 = conj((al_3.').')*(al_1.');
 %sum_dft_3 = sum(dft_3(:));
 
+% Calculate the channel response vectors for each satellite to GS antenna path
+
+G_ul_1 = (al_1)* 10^(gain_channel_ul/10) ;
+G_ul_2 = (al_2)* 10^(gain_channel_ul/10) ;
+G_ul_3 = (al_3)* 10^(gain_channel_ul/10) ;
+
+G_ul = [G_ul_1 G_ul_2 G_ul_3] ;
+G_ul_hermitian = transpose(conj(G_ul));
+
 
