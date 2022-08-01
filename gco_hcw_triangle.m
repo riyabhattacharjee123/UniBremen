@@ -10,7 +10,7 @@
 % The below code calculates the initial position and velocities of chasers
 % --in Clohessy-Wiltshire Equations in General Circular Orbit
 
-%side = 2000 ; % metres , side of the equilateral triangle
+%side = 100 ; % metres , side of the equilateral triangle
 
 % rho = Relative distance between the centroid of the triangle and the 
 % --respective deputies in metres

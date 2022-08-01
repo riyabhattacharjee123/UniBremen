@@ -21,7 +21,7 @@ P_tx_sat_dBm = P_tx_sat_dBW + 30; % dBm, transmitted power in dBm
 g_tx_dB = 17.8; % dBi , Gain of transmit antenna
 g_rx_dB = 20.0; % dBi , Gain of receive antenna
 
-fc = 20e9;      % Hz, carrier frequency 20GHz
+fc = 6e9; %20e9;      % Hz, carrier frequency 6GHz
 B_c = 2e9; % Hz, carrier Bandwidth (24-26GHz)
 lambda = c0/fc;  % m,  wavelength
 nu  = 2*pi*fc/c0 ; % wavenumber of carrier signal
@@ -39,11 +39,10 @@ utc = [2022 1 17 10 20 36];
 % Receiver Antenna locations in Lat., Lon., Alt.
 rcvr_1=[53.10657108482692, 8.850392209543823 18]; % Bremen Uni 53°N , 8.8°E, 18m 
 Nrx= 8; % Create Nrx X Nrx MIMO at Ground station
-gap = 1; % meters, gap between the Rx antennas one half wavelength
+D_Ant = c0/(2*fc); % 1; % meters, gap between the Rx antennas one half wavelength, D_A
 
 
-% satellite positions
-inter_satellite_distance = (50:100:100000); % meters
+inter_satellite_distance = 50:10000:1000000 ; % meters 50:300:1000000
 
 
 

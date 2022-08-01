@@ -1,8 +1,8 @@
 % ref : https://core.ac.uk/download/pdf/4268217.pdf
 
-% consider a Pentagon formation. Five Chasers. One Leader that is
-% imaginary. and is located at the centre of the equilateral Pentagon
-% formed by the Five satellites. This centroid coincides with the origin
+% consider a Hexagon formation. Six Chasers. One Leader that is
+% imaginary. and is located at the centre of the equilateral Hexagon
+% formed by the Six satellites. This centroid coincides with the origin
 % of the LVLH frame.
 % The satellites move in circular orbits around the leader. The leader is
 % also in a circular orbit around the Earth.

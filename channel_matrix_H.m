@@ -1,6 +1,6 @@
-clear all
-close all
-clc
+%clear all
+%close all
+%clc
 % channel_matrix_H.m
 % we calculate channel matrix [H] (NtxNr)
 % Number of transmitting antennas (Nr) = 3
@@ -11,27 +11,20 @@ clc
 % Universal constants used
 k_b = 1.380649*10e-23; % m^2 kg s^-1 K^-1, Boltzmann constant
 c0 = 3e8;        % m/s, speed of light
-pi = 22/7;
+pi = 3.1415;
 
 %run('D:\MSc. Project Zarm\Sample_s_function\solution_20_May\coordinates_convertor.m');
-run('coordinates_convertor.m');
+%run('coordinates_convertor.m');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Antenna User input variables
+% Antenna User input
+Nr = length(rcvr_pos_eci(:,1)); % number of receiver antenna
+Nt = (length(r_start)/3)-1; % number of transmitting antenna
 
-Nr = 3; % number of receiver antenna
-Nt = 3; % number of transmitting antenna
-
-SNR_dB = zeros(1,41); % dB
-counter= 1;
-for v = 50:10:450
-   SNR_dB(1,counter) = v;
-   counter= counter+ 1;
-end
-
-P_tx_sat = 180 ; %Watts, power of the signal transmitted by satellite
+SNR_dB = (140:5:190); % User input SNR in dB
+P_tx_sat = 80 ; %Watts, power of the signal transmitted by satellite
 P_tx_sat_dBW = 10*log10(P_tx_sat); % dBW, transmitted power in dBW
 P_tx_sat_dBm = P_tx_sat_dBW + 30; % dBm, transmitted power in dBm
 
@@ -62,23 +55,14 @@ for n=1:size(rcvr_pos_eci,1)
         del_x = trx_pos_eci(m,1)- rcvr_pos_eci(n,1); % meters
         del_y = trx_pos_eci(m,2)- rcvr_pos_eci(n,2); % meters
         del_z = trx_pos_eci(m,3)- rcvr_pos_eci(n,3); % meters        
-        distance(n,m) = sqrt(del_x^2+del_y^2+del_z^2); % meters
-        
-        % calculate the free space loss (fsl)
-        fsl_dB(n,m) = -147.55 + 20*log10(distance(n,m)) + 20*log10(fc); % dB
-        fsl_linear(n,m) = 10^(fsl_dB(n,m)/10); % linear scale
-        
+        distance(n,m) = sqrt(del_x^2+del_y^2+del_z^2); % meters        
+       
         % calculate the pathloss in dB
         pathloss_dB(n,m) = -20*log10(lambda/(4*pi*distance(n,m)))- g_tx_dB - g_rx_dB;        
         pathloss_linear(n,m) = 10^(pathloss_dB(n,m)/10);
         
         % calculate the elements of channel matrix
-        H(n,m) = (1/sqrt(pathloss_linear(n,m)))* exp(-1i*nu*distance(n,m));
-       % H(n,m) = (1/sqrt(fsl_linear(n,m)))* exp(-1i*nu*distance);
-        
-        % calculate elements of SNR for each link
-        SNR_channel(n,m) = P_tx_sat*pathloss_linear(n,m)/sigma_sq ;
-        SNR_channel_dB(n,m)= 10*log10(SNR_channel(n,m));
+        H(n,m) = (1/sqrt(pathloss_linear(n,m)))* exp(-1i*nu*distance(n,m));     
         
     end    
 end
@@ -103,33 +87,29 @@ disp(y_signal);
 
 % Channel Rate
 H_hermitian = transpose(conj(H));
-I = ones(Nr,Nr); % Identity matrix
+I = eye(Nr,Nr); % Identity matrix
 % Calculate the Channel capacity for each SNR
+
+prod = H*H_hermitian;
+
 for s = 1:size(SNR_dB,2)  
     SNR = 10^(SNR_dB(s)/10); % converting SNR from dB to linear scale
-    R =  log2(det(I+((SNR/Nt)*H*H_hermitian))); % bits/sec/Hz
+    R =  log2(real(det(I+((SNR/Nt)*H*H_hermitian)))); % bits/sec/Hz
     
-    X1(s)=SNR;
-    X2(s)= SNR_dB(s);
+    X1(s)= SNR_dB(s);
     Y(s)=R;
 end   
 
 % plot graph
-figure()
-plot(X1,Y);
-xlabel("SNR in linear scale");
-ylabel("Channel Rate (R) (bps/Hz)");
-title("Channel rate vs SNR");
-legend('3X3 MIMO')
+figure();
+plot(X1,Y,'-*');
+xlabel("SNR in dB");
+ylabel("Achievable Channel Rate (R) (bps/Hz)");
+title("Achievable Channel rate vs SNR_ dB");
+legend('3X4 MIMO')
 grid on;
 
-figure();
-plot(X2,Y);
-xlabel("SNR in dB");
-ylabel("Channel Rate (R) (bps/Hz)");
-title("Channel rate vs SNR_dB");
-legend('3X3 MIMO')
-grid on;
+
 
 
 

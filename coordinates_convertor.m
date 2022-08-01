@@ -1,31 +1,27 @@
 % Convert geodetic latitude, longitude, altitude (LLA) coordinates to 
 % Earth-centered inertial (ECI) coordinates
 
-% 01/17/2022 10:20:36 UTC (MM/DD/YYYY HH:MM:SS)
-utc = [2022 1 17 10 20 36];
-
-% Receiver Antenna locations in Lat., Lon., Alt.
-rcvr_1=[53.073635 8.806422 18]; % Bremen Uni 53°N , 8.8°E, 18m 
-rcvr_2=[53.139403 8.677612 17]; % Bremen Industriehäfen
-rcvr_3=[53.046563 8.744246 15]; % Bremen Roland Center
-
-rcvr_pos_lla = [rcvr_1;rcvr_2;rcvr_3];
-
-rcvr_pos_eci_1 = lla2eci(rcvr_1,utc);
-rcvr_pos_eci_2 = lla2eci(rcvr_2,utc);
-rcvr_pos_eci_3 = lla2eci(rcvr_3,utc);
-
-rcvr_pos_eci = [rcvr_pos_eci_1;
-    rcvr_pos_eci_2;
-    rcvr_pos_eci_3];
-
+% Antenna locations
+run('receiver_antenna_locations.m')
 
 % Convert ECI (cartesian) into Polar coordinates for satellite
 
 % Satellite position taken from triangle simulation Satellite position
-trx_pos_eci = [6.741288675134595e+06 -1.775767425616158e+06 6.074054240774883e+06;
-    6.741288675134595e+06 -1.771572425464163e+06 6.078467508121989e+06;
-    6.740422649730810e+06 -1.778890987893593e+06 6.072249036095161e+06];
+%r_start = [6871288.67513460,1000.00000000000,500.000000000000,6871000,0,0,6871288.67513460,-1000.00000000000,500.000000000000,6870422.64973081,-2.12115047744981e-13,-1000];
+
+for ri = 1:length(r_start)
+    disp(r_start)
+    snum = length(r_start)/3;
+    for s = 1:snum        
+        if s ~= 2
+            trx_pos_eci(s,1) = r_start(1,(3*s-2));
+            trx_pos_eci(s,2) = r_start(1,(3*s-1));
+            trx_pos_eci(s,3) = r_start(1,(3*s-0));
+        end
+    end    
+end
+trx_pos_eci([2],:) = [];
+disp(trx_pos_eci);
 
 % convert Transmiter position ECI to Polar coordinates
 trx_pos_pol = []; % [r theta phi ; r theta phi];

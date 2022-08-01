@@ -10,7 +10,8 @@
 % --in Clohessy-Wiltshire Equations in General Circular Orbit
 
 % rho = Relative distance between the leader and follower
-rho = 20000; % metres
+%rho = 20000; % metres
+rho = side ; % meters
 mu = 3.9857 *10^(14); % constant
 disp('rho (m)');
 disp(rho) ;
@@ -34,7 +35,7 @@ zdot_leader = 0; % metres/second
 % We initialize the time, orbital angles, integration constants
 % --mean motion
 t = 0 ; %seconds
-alpha = deg2rad([50].'); % radians
+alpha = deg2rad([180].'); % radians
 beta = 1.29154 ; % radians , 74 degrees
 
 c1 = 0 ; %rho ;

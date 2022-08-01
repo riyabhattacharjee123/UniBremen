@@ -34,7 +34,7 @@ zdot_leader = 0; % metres/second
 % We initialize the time, orbital angles, integration constants
 % --mean motion
 t = 0 ; %seconds
-alpha = deg2rad(180 + [0].'); % radians, 180 degrees for the chaser
+alpha = deg2rad(120 + [0 120].'); % radians, 180 degrees for the chaser
 beta = deg2rad(15) ; % radians , 15 degrees
 
 % Defining the integration constants of the HCW equations
@@ -53,15 +53,18 @@ x_c = x_leader + x_0; %metres in ECI-x
 y_0 = (c1) * cos( n*t + alpha ) + c3 ; % metres in LVLH-y
 y_c = y_0 + y_leader ; %metres in ECI-y
 
-z_0 = c2 * sin(n*t + beta ) ; % metres in LVLH-z
+z_0 = [c2 * sin(n*t + beta ) ; c2 * sin(n*t + beta )] ; % metres in LVLH-z
 z_c = z_0 + z_leader ; %metres in ECI-z
 
 % Display the above calculated values
 disp('absolute_radius_chaser x_C');
+disp(x_0);
 disp(x_c);
 disp('absolute_radius_chaser y_C');
+disp(y_0);
 disp(y_c);
 disp('absolute_radius_chaser z_C');
+disp(z_0);
 disp(z_c);
 
 % Calculate the initial velocities of the chasers in LVLH frame using
@@ -75,7 +78,7 @@ disp (rho_eci)
 disp('repmat theta_dot')
 disp(repmat(theta_dot,1,1))
 
-rotation_term = cross(repmat(theta_dot,1,1),rho_eci,2); % we get the rotation translation matrix
+rotation_term = cross(repmat(theta_dot,2,1),rho_eci,2); % we get the rotation translation matrix
 xdot_rotation = rotation_term(:,1) ;
 ydot_rotation = rotation_term(:,2) ;
 zdot_rotation = rotation_term(:,3) ;

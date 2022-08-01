@@ -13,7 +13,7 @@
 
 % rho = Relative distance between the leader and the 
 % --respective deputies in metres
-rho = 50000; % metres
+rho = side; % 50000; % metres
 mu = 3.9857 *10^(14); % constant
 disp('rho (m)');
 disp(rho) ;
