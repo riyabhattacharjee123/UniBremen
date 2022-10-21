@@ -21,10 +21,15 @@ mu = 3.9857 *10^(14); % constant
 radius_earth = 6371000 ; %metres
 
 % Initializing the starting position of leader satellite in ECI
+%x_leader_altitude = 600000; %metres
+%x_leader = radius_earth + x_leader_altitude; %metres
+%y_leader = 0; %metres
+%z_leader = 0 ; %metres
+% Initializing the starting position of leader satellite in ECI
 x_leader_altitude = 600000; %metres
-x_leader = radius_earth + x_leader_altitude; %metres
-y_leader = 0; %metres
-z_leader = 0 ; %metres
+x_leader = sat_eci(1,1); %metres
+y_leader = sat_eci(1,2); %metres
+z_leader = sat_eci(1,2) ; %metres
 
 % calculate the initial velocity of the leader satellite in circular orbit
 % using vis-viva equation
