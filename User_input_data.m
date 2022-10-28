@@ -7,7 +7,7 @@ pi = 3.1415;
 
 
 % Antenna User input
-SNRdB_user_input = (200); %dB
+SNRdB_user_input = (2000); %dB
 SNR_lin = 10^(SNRdB_user_input/10);
 SNR_dB = zeros(1,length(SNRdB_user_input)); % dB
 counter= 1;
@@ -56,7 +56,7 @@ Nrx= 8; % Create Nrx X Nrx MIMO at Ground station
 D_Ant = c0/(2*fc); % 1; % meters, gap between the Rx antennas one half wavelength, D_A
 
 
-inter_satellite_distance = 400000 ; % meters 50:300:1000000
+inter_satellite_distance = 200000 ; % meters 50:300:1000000
 
 % Number of antenna attached to a satellite
 N_sat_ant = 1 ;
