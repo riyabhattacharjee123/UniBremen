@@ -32,7 +32,7 @@ x_tx_signal = G_geo * s_signal;
 % actual power in signal vector
 L=1;
 Power_vector=L*sum(sum(abs(s_signal).^2))/length(s_signal); 
-N0=Power_vector/SNR_lin; %Find the noise spectral density
+N0=Power_vector/SNR_linear; %Find the noise spectral density
 noiseVar = N0/2; %P_noise_var; %sigma_sq ; %1;
 
 numSamples = Ngs;
@@ -136,55 +136,57 @@ x_signal_recovered = s_est_signal; %(W_k)*y_received_signal_sat;
 %title('Signal transmitted from Satellite 1 / Desired Signal');
 %xlabel('number of bits per symbol');
 %ylabel(' binary signal sent');
-figure();
-subplot(2,2,1)
-plot(real(y_received_signal_sat(1,:)),imag(y_received_signal_sat(1,:)),'.');
+
+
+%figure();
+%subplot(2,2,1)
+%plot(real(y_received_signal_sat(1,:)),imag(y_received_signal_sat(1,:)),'.');
 %xlim(plot_lims);
 %ylim(plot_lims);
-title('QPSK constellation from satelite 1 with AWGN');
-xlabel('real part');
-ylabel('imaginary part');
+%title('QPSK constellation from satelite 1 with AWGN');
+%xlabel('real part');
+%ylabel('imaginary part');
 
-subplot(2,2,2)
-plot(real(y_received_signal_sat(2,:)),imag(y_received_signal_sat(2,:)),'.');
+%subplot(2,2,2)
+%plot(real(y_received_signal_sat(2,:)),imag(y_received_signal_sat(2,:)),'.');
 %xlim(plot_lims);
 %ylim(plot_lims);
-title('QPSK constellation from satelite 2 with AWGN');
-xlabel('real part');
-ylabel('imaginary part');
+%title('QPSK constellation from satelite 2 with AWGN');
+%xlabel('real part');
+%ylabel('imaginary part');
 
-subplot(2,2,3)
-plot(real(y_received_signal_sat(3,:)),imag(y_received_signal_sat(3,:)),'.');
+%subplot(2,2,3)
+%plot(real(y_received_signal_sat(3,:)),imag(y_received_signal_sat(3,:)),'.');
 %xlim(plot_lims);
 %ylim(plot_lims);
-title('QPSK constellation from satelite 3 with AWGN');
-xlabel('real part');
-ylabel('imaginary part');
+%title('QPSK constellation from satelite 3 with AWGN');
+%xlabel('real part');
+%ylabel('imaginary part');
 
 
-figure();
-subplot(2,2,1)
-plot(real(s_est_signal(1,:)), imag(s_est_signal(1,:)), '.');
-xlim(plot_lims);
-ylim(plot_lims);
-title('QPSK constellation from satelite 1 estimated');
-xlabel('real part');
-ylabel('imaginary part');
+%figure();
+%subplot(2,2,1)
+%plot(real(s_est_signal(1,:)), imag(s_est_signal(1,:)), '.');
+%xlim(plot_lims);
+%ylim(plot_lims);
+%title('QPSK constellation from satelite 1 estimated');
+%xlabel('real part');
+%ylabel('imaginary part');
 
-subplot(2,2,2)
-plot(real(s_est_signal(2,:)), imag(s_est_signal(2,:)), '.');
-xlim(plot_lims);
-ylim(plot_lims);
-title('QPSK constellation from satelite 2 estimated');
-xlabel('real part');
-ylabel('imaginary part');
+%subplot(2,2,2)
+%plot(real(s_est_signal(2,:)), imag(s_est_signal(2,:)), '.');
+%xlim(plot_lims);
+%ylim(plot_lims);
+%title('QPSK constellation from satelite 2 estimated');
+%xlabel('real part');
+%ylabel('imaginary part');
 
-subplot(2,2,3)
-plot(real(s_est_signal(3,:)), imag(s_est_signal(3,:)), '.');
-xlim(plot_lims);
-ylim(plot_lims);
-title('QPSK constellation from satelite 3 estimated');
-xlabel('real part');
-ylabel('imaginary part');
+%subplot(2,2,3)
+%plot(real(s_est_signal(3,:)), imag(s_est_signal(3,:)), '.');
+%xlim(plot_lims);
+%ylim(plot_lims);
+%title('QPSK constellation from satelite 3 estimated');
+%xlabel('real part');
+%ylabel('imaginary part');
                      
                      
