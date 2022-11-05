@@ -7,14 +7,15 @@ pi = 3.1415;
 
 
 % Antenna User input
-SNRdB_user_input = (2000); %dB
-SNR_lin = 10^(SNRdB_user_input/10);
+SNRdB_user_input = 235:1:235; %120:2:239; %(190); %dB
+SNR_lin = zeros(1,length(SNRdB_user_input));%10^(SNRdB_user_input/10);
 SNR_dB = zeros(1,length(SNRdB_user_input)); % dB
-counter= 1;
-for v = SNRdB_user_input  
-    SNR_dB(1,counter) = v;
-    counter= counter+ 1;
-end
+%counter= 1;
+%for v = SNRdB_user_input  
+ %   SNR_dB(1,counter) = v;    
+ %   SNR_lin(1,counter) = 10^(v/10);
+ %   counter= counter+ 1;
+%end
 P_tx_sat = 100 ; %Watts, power of the signal transmitted by satellite
 P_tx_sat_dBW = 10*log10(P_tx_sat); % dBW, transmitted power in dBW
 P_tx_sat_dBm = P_tx_sat_dBW + 30; % dBm, transmitted power in dBm
@@ -42,7 +43,7 @@ P_noise_var = 10^(P_noise_dbW/100);
 sigma_sq = k_b * Temp * B_n ; % variance of AWGN
 
 % PSD_N_0 = P_tx_gs/SNR_lin
-PSD_N_0 = P_tx_gs / SNR_lin ; % Power Spectral Density of noise
+
 
 
 
@@ -56,7 +57,7 @@ Nrx= 8; % Create Nrx X Nrx MIMO at Ground station
 D_Ant = c0/(2*fc); % 1; % meters, gap between the Rx antennas one half wavelength, D_A
 
 
-inter_satellite_distance = 200000 ; % meters 50:300:1000000
+inter_satellite_distance = 72000:1:72000; %2000:10000:100000 %200000 ; % meters 50:300:1000000
 
 % Number of antenna attached to a satellite
 N_sat_ant = 1 ;
@@ -67,7 +68,9 @@ N_sat_ant = 1 ;
 
 %t = 0.0001:0.0001:1;
 
-
+d_r = 600000; % meters.
+theta_el_deg_user = 54:1:54; %30:1:100;
+phi_az_deg = 320 ;
 
 
 

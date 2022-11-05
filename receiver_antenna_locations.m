@@ -19,16 +19,18 @@ for b = 1:Nrx
         ak=ak+1;        
     end    
 end
-figure();
-hold on;
-plot3(rcvr_pos_eci(:,1),rcvr_pos_eci(:,2),rcvr_pos_eci(:,3),'r^'...
-    ,'LineWidth',2,'MarkerSize',10);
 
-title('ECI coordinates of receiver antennas on Earth')
-rotate3d
-xlabel('ECI-x (metres)'), ylabel('ECI-y (metres)'),...
-    zlabel('ECI-z (metres)')
-legend('MIMO ECI coordinates')
-grid on;
-axis equal;
+
+%figure();
+%hold on;
+%plot3(rcvr_pos_eci(:,1),rcvr_pos_eci(:,2),rcvr_pos_eci(:,3),'r^'...
+ %   ,'LineWidth',2,'MarkerSize',10);
+
+%title('ECI coordinates of receiver antennas on Earth')
+%rotate3d
+%xlabel('ECI-x (metres)'), ylabel('ECI-y (metres)'),...
+ %   zlabel('ECI-z (metres)')
+%legend('MIMO ECI coordinates')
+%grid on;
+%axis equal;
 

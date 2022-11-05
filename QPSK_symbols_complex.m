@@ -35,31 +35,31 @@ for ns = 1:Ns
 end
 
 
-figure();
-plot_lims = [-3 3];
-subplot(2,2,1)
-plot(real(qpsk_sig(1,:)), imag(qpsk_sig(1,:)), '.');
-xlim(plot_lims);
-ylim(plot_lims);
-title('QPSK constellation from satelite 1 without noise');
-xlabel('real part');
-ylabel('imaginary part');
+%figure();
+%plot_lims = [-3 3];
+%subplot(2,2,1)
+%plot(real(qpsk_sig(1,:)), imag(qpsk_sig(1,:)), '.');
+%xlim(plot_lims);
+%ylim(plot_lims);
+%title('QPSK constellation from satelite 1 without noise');
+%xlabel('real part');
+%ylabel('imaginary part');
 
-subplot(2,2,2)
-plot(real(qpsk_sig(2,:)), imag(qpsk_sig(2,:)), '.');
-xlim(plot_lims);
-ylim(plot_lims);
-title('QPSK constellation from satelite 2 without noise');
-xlabel('real part');
-ylabel('imaginary part');
+%subplot(2,2,2)
+%plot(real(qpsk_sig(2,:)), imag(qpsk_sig(2,:)), '.');
+%xlim(plot_lims);
+%ylim(plot_lims);
+%title('QPSK constellation from satelite 2 without noise');
+%xlabel('real part');
+%ylabel('imaginary part');
 
-subplot(2,2,3)
-plot(real(qpsk_sig(3,:)), imag(qpsk_sig(3,:)), '.');
-xlim(plot_lims);
-ylim(plot_lims);
-title('QPSK constellation from satelite 3 without noise');
-xlabel('real part');
-ylabel('imaginary part');
+%subplot(2,2,3)
+%plot(real(qpsk_sig(3,:)), imag(qpsk_sig(3,:)), '.');
+%xlim(plot_lims);
+%ylim(plot_lims);
+%title('QPSK constellation from satelite 3 without noise');
+%xlabel('real part');
+%ylabel('imaginary part');
 
 %snr = 15; %// in dB
 %rx_sig = awgn(tx_sig, snr, 'measured');

@@ -12,11 +12,6 @@ point1=rcvr_pos_eci(1,:);
 
 [gs_azimuth,gs_elevation,gs_r] = cart2sph(rcvr_pos_eci(1,1),rcvr_pos_eci(1,2),rcvr_pos_eci(1,3));
 
-d_r = 600000; % meters.
-
-theta_el_deg = 50;
-phi_az_deg = 320 ;
-
 sat_eci(1,1) = rcvr_pos_eci(1,1) + d_r*cosd(theta_el_deg)*cosd(phi_az_deg);
 sat_eci(1,2) = rcvr_pos_eci(1,2) + d_r*sind(theta_el_deg);
 sat_eci(1,3) = rcvr_pos_eci(1,3) + d_r*cosd(theta_el_deg)*sind(360-phi_az_deg);
