@@ -16,7 +16,13 @@ end
 for i=1:N
 yd(i) = sum(w(i)' * x(i));  
 end
+
+d_est = w(1,N) * x ;
+
 subplot(221),plot(t,d),ylabel('Desired Signal'),
 subplot(222),plot(t,x),ylabel('Input Signal+Noise'),
 subplot(223),plot(t,e),ylabel('Error'),
 subplot(224),plot(t,yd),ylabel('Adaptive Desired output');
+
+figure();
+plot(t,d_est),ylabel('Estimated output');
