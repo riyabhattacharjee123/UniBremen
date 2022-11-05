@@ -7,7 +7,7 @@ pi = 3.1415;
 
 
 % Antenna User input
-SNRdB_user_input = 235:1:235; %120:2:239; %(190); %dB
+SNRdB_user_input = 2000:1:2000; % 236:1:236; %120:2:239; %(190); %dB
 SNR_lin = zeros(1,length(SNRdB_user_input));%10^(SNRdB_user_input/10);
 SNR_dB = zeros(1,length(SNRdB_user_input)); % dB
 %counter= 1;
@@ -69,7 +69,7 @@ N_sat_ant = 1 ;
 %t = 0.0001:0.0001:1;
 
 d_r = 600000; % meters.
-theta_el_deg_user = 54:1:54; %30:1:100;
+theta_el_deg_user = 35:1:35 %54:1:54; %30:1:100;
 phi_az_deg = 320 ;
 
 

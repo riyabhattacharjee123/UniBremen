@@ -11,7 +11,7 @@ run('User_input_data.m');
 BER_plot = zeros(1,length(SNRdB_user_input));
 R_sum_rate_plot = zeros(1,length(SNRdB_user_input));
 R_sum_rate_plot = zeros(1,length(theta_el_deg_user));
-
+Ns = 3
 
 for te = 1:length(theta_el_deg_user)
     
@@ -42,6 +42,7 @@ for te = 1:length(theta_el_deg_user)
             SNR_linear = SNR_lin(1,su);
 
             PSD_N_0 = P_tx_gs / SNR_linear ; % Power Spectral Density of noise
+            run('QPSK_symbols_complex.m');
 
             run('GSfixedcoordinates.m');
             run('cartesianTOspherical_r_start_sat.m'); 
@@ -52,10 +53,10 @@ for te = 1:length(theta_el_deg_user)
             X1(isd)= inter_satellite_distance(isd)/1000;  
             %Y2(isd)= real(sum_dft_1) ;    
             run('linear_receiver.m'); 
-            run('linear_receiver_sinr.m');
-            run('linear_receiver_ber.m');
-            BER_plot(su)= BER(1,1);
-            R_sum_rate_plot(te)= R_sum_rate;             
+            %run('linear_receiver_sinr.m');
+            %run('linear_receiver_ber.m');
+            BER_plot(su)= 1; %BER(1,1);
+            R_sum_rate_plot(te)= 1; %R_sum_rate;             
 
             run('LMS_adaptive_filter.m'); 
         end
