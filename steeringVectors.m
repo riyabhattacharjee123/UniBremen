@@ -35,14 +35,15 @@ for m_gs = 1:(size(rcvr_pos_eci,1))
         
         %% Calculate the pathloss in dB and linear scale
         pathloss_dB(m_gs,l_ns) = -20*log10(lambda/(4*pi ...
-                                   * distance(m_gs,l_ns)))...
+                                   * 600000)) ... %distance(m_gs,l_ns)))...
                                    - g_tx_dB - g_rx_dB;
                             
         pathloss_linear(m_gs,l_ns) = 10^(pathloss_dB(m_gs,l_ns)/10);
         
         %% Calculate the Complex valued Channel Gain
         channel_gain(m_gs,l_ns) = (1/sqrt(pathloss_linear(m_gs,l_ns))) ...
-                                   * exp(-1i*nu*distance(m_gs,l_ns));                    
+                                   * exp(-1i*nu* 600000 );
+                               %distance(m_gs,l_ns));                    
         
         
     end    
