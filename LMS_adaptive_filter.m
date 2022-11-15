@@ -3,8 +3,9 @@
 
 n_seq = size(qpsk_sig,2); % length of sequence
 m_taps = 1;  % number of taps
-mu_step = 0.09 ; % step size mu
+mu_step = 0.0005; %3.6896e+27; %0.09 ; % step size mu
 t=[0:n_seq-1];
+n_symb = [1:num_symbols]
 Weight_real = zeros(Ns,n_seq); % weight vector Real part
 Weight_imag = zeros(Ns,n_seq); % weight vector Imaginary part
 E_real=[]; % error vector real part
@@ -18,8 +19,11 @@ D_signal_imag = imag(qpsk_sig);
 
 % Corrupted received_signal
 A_signal = (Channel_matrix_H)*(G_geo)*(D_signal) + awgn_cn ; % input vector
-U_signal_real = real(A_signal); % input vector real part
-U_signal_imag = imag(A_signal); % input vector imaginary part
+A_signal_amplified = (1e3)*A_signal;
+U_signal_real = real(A_signal_amplified); % input vector real part
+U_signal_imag = imag(A_signal_amplified); % input vector imaginary part
+
+
 
 %% Find Optimum W. Used this code%%
 %W_af = zeros(Ngs,Ns); % Ngs=64
@@ -46,6 +50,7 @@ for ins = 1:Ns
             % Calculate error vector Real and imaginary parts            
             E_real(ins,ix) = D_signal_real(ins,ix) - y_real(ins,ix);
             E_imag(ins,ix) = D_signal_imag(ins,ix) - y_imag(ins,ix);
+            E(ins,ix) = complex(E_real(ins,ix),E_imag(ins,ix));
             
             % Calculate Weight vector Real and imaginary parts
             Weight_real(ins,ix+1) = Weight_real(ins,ix) + mu_step ...
@@ -105,6 +110,16 @@ ylabel('imaginary part');
 title('Signal received at GS 1 of LMS Adaptive Filter');
 
 figure();
+%plot(real(A_signal(1,:)),imag(A_signal(1,:)),'.');
+plot(t,real(A_signal_amplified(1,:)));
+%xlim(plot_lims);
+%ylim(plot_lims);
+xlabel('real part');
+ylabel('imaginary part');
+title('Amplified signal received at GS 1 of LMS Adaptive Filter');
+
+
+figure();
 %plot(real(E(1,:)), imag(E(1,:)),'.');
 plot(t,real(E_real(1,:)));
 title('Error signal in LMS Adaptive filter');
@@ -120,11 +135,11 @@ title('Adaptive desired output signal');
 %xlim(plot_lims);
 %ylim(plot_lims);
 xlabel('real part');
-ylabel('imaginary part');
+ylabel('                                                                                                                                                     imaginary part');
 
 figure();
 %plot(real(D_signal_est(1,:)),imag(D_signal_est(1,:)),'.');
-plot(t,real(s_est_signal_af_real(1,:)));
+plot(t,s_est_signal_af_real(1,:));
 title('Estimated output signal Adaptive Filter');
 %xlim(plot_lims);
 %ylim(plot_lims);
@@ -132,31 +147,30 @@ xlabel('real part');
 ylabel('imaginary part');
 
 
-
 %% Demodulate the received QPSK signals%%
 % QPSK demodulator at the Receiver
 uncoded_bits_rx_AF = zeros(1,2*size(A_signal,2)); % later change 1 to Ns
 for ins= 1:Ns
-    B4_AF(ins,:) = (y_real(ins,:)<0);
-    B3_AF(ins,:) = (y_imag(ins,:)<0);          
+    B4_AF(ins,:) = (s_est_signal_af_real(ins,:)<0);%(y_real(ins,:)<0);
+    B3_AF(ins,:) = (s_est_signal_af_imag(ins,:)<0);%(y_imag(ins,:)<0);          
     uncoded_bits_rx_AF(ins,(1:2:end)) = B4_AF(ins,:);
     uncoded_bits_rx_AF(ins,(2:2:end)) = B3_AF(ins,:);
 end
 
-qpsk_sig_demodulated_AF=uncoded_bits_rx_AF;
+qpsk_sig_demodulated_AF = uncoded_bits_rx_AF;
 
 %% Calculate the BER of the recived signal from satellite 1 %%
- T_Errors_AF = zeros();
- T_bits_AF = zeros();
- for ns = 1:3
-     while T_Errors_AF < 500
+ T_Errors_AF = zeros(Ns,num_symbols);
+ T_bits_AF = zeros(Ns,num_symbols);
+ for ins = 1:Ns
+     while T_Errors_AF(ins,:) < 500
          % Calculate Bit Errors
-         diff(ns,:) = uncoded_bits(ns,:) - uncoded_bits_rx_AF(ns,:);
-         T_Errors_AF = T_Errors_AF + sum(abs(diff(ns,:)));
-         T_bits_AF = T_bits_AF + length(x_signal(2));
+         diff(ins,:) = uncoded_bits(ins,:) - uncoded_bits_rx_AF(ins,:);
+         T_Errors_AF(ins,:) = T_Errors_AF(ins,:) + sum(abs(diff(ins,:)));
+         T_bits_AF(ins,:) = T_bits_AF(ins,:) + length(x_signal(2));
      end     
      % Calculate Bit Error Rate
-     BER_AF(ns,:) = T_Errors_AF / T_bits_AF;     
+     BER_AF(ins,:) = T_Errors_AF(ins,:) / T_bits_AF(ins,:);     
  end
 
 figure();
@@ -185,11 +199,40 @@ title('QPSK constellation from satelite 3 demodulated AF');
 xlabel('real part');
 ylabel('imaginary part');
 
-%subplot(2,2,1)
-%plot(real(qpsk_sig_demodulated(1,:)), imag(qpsk_sig_demodulated(1,:)), '.');
+figure();
+subplot(2,2,1)
+plot(real(qpsk_sig_demodulated_AF(1,:)), imag(qpsk_sig_demodulated_AF(1,:)), '.');
 %xlim(plot_lims);
 %ylim(plot_lims);
-%title('QPSK constellation from satelite 1 demodulated');
-%xlabel('real part');
-%ylabel('imaginary part');
- 
+title('QPSK constellation from satelite 1 demodulated');
+xlabel('real part');
+ylabel('imaginary part');
+
+subplot(2,2,2)
+plot(real(qpsk_sig_demodulated_AF(2,:)), imag(qpsk_sig_demodulated_AF(2,:)), '.');
+%xlim(plot_lims);
+%ylim(plot_lims);
+title('QPSK constellation from satelite 2 demodulated');
+xlabel('real part');
+ylabel('imaginary part');
+
+subplot(2,2,3)
+plot(real(qpsk_sig_demodulated_AF(3,:)), imag(qpsk_sig_demodulated_AF(3,:)), '.');
+%xlim(plot_lims);
+%ylim(plot_lims);
+title('QPSK constellation from satelite 3 demodulated');
+xlabel('real part');
+ylabel('imaginary part');
+
+figure();
+plot(t,abs(E(1,:)) );
+xlabel("Number of adaptations");
+ylabel("Instantaneous Error");
+title("Instantaneous Error signal with iterations");
+
+figure();
+plot((n_symb), abs(diff(1,:)) );
+xlabel("Number of symbols");
+ylabel("Instantaneous Bit Error");
+title("Instantaneous BER with iterations");
+

@@ -7,7 +7,7 @@ pi = 3.1415;
 
 
 % Antenna User input
-SNRdB_user_input = 2000:1:2000; % 236:1:236; %120:2:239; %(190); %dB
+SNRdB_user_input = 200:1:200; % 236:1:236; %120:2:239; %(190); %dB
 SNR_lin = zeros(1,length(SNRdB_user_input));%10^(SNRdB_user_input/10);
 SNR_dB = zeros(1,length(SNRdB_user_input)); % dB
 %counter= 1;
@@ -16,12 +16,12 @@ SNR_dB = zeros(1,length(SNRdB_user_input)); % dB
  %   SNR_lin(1,counter) = 10^(v/10);
  %   counter= counter+ 1;
 %end
-P_tx_sat = 100 ; %Watts, power of the signal transmitted by satellite
+P_tx_sat = 1e+8; %100 ; %Watts, power of the signal transmitted by satellite
 P_tx_sat_dBW = 10*log10(P_tx_sat); % dBW, transmitted power in dBW
 P_tx_sat_dBm = P_tx_sat_dBW + 30; % dBm, transmitted power in dBm
 
-g_tx_dB = 17.8; % dBi , Gain of transmit antenna
-g_rx_dB = 20.0; % dBi , Gain of receive antenna
+g_tx_dB = 30; %17.8; % dBi , Gain of transmit antenna
+g_rx_dB = 28; %20.0; % dBi , Gain of receive antenna
 
 gain_channel_ul =  18.00; %-100.0 ; % dB , channel gain uplink
 gain_channel_dl = -105.0 ; % dB , channel gain downlink
@@ -39,7 +39,7 @@ Temp = 70; % Kelvin, system temperature
 P_noise_dbW = -200; % -135 ; % dBW , noise power
 P_noise_dBm = P_noise_dbW + 30; % dBm, noise power
 B_n = 30e6 ; % hz , Noise Bandwidth
-P_noise_var = 10^(P_noise_dbW/100);
+P_noise_var = 10^(P_noise_dbW/10);
 sigma_sq = k_b * Temp * B_n ; % variance of AWGN
 
 % PSD_N_0 = P_tx_gs/SNR_lin

@@ -17,19 +17,19 @@ end
 qpsk_sig_demodulated=uncoded_bits_rx;
 
 %% Calculate the BER of the recived signal from satellite 1 %%
- T_Errors = zeros();
- T_bits = zeros();
+ T_Errors = zeros(Ns,num_symbols);
+ T_bits = zeros(Ns,num_symbols);
  
  %for su=1:length(SNRdB_user_input)
      for ns = 1:Ns
-         while T_Errors < 500
+         while T_Errors(ns,:) < 500
              % Calculate Bit Errors
              diff(ns,:) = uncoded_bits(ns,:) - uncoded_bits_rx(ns,:);
-             T_Errors = T_Errors + sum(abs(diff(ns,:)));
-             T_bits = T_bits + length(x_signal(2));
+             T_Errors(ns,:) = T_Errors(ns,:) + sum(abs(diff(ns,:)));
+             T_bits(ns,:) = T_bits(ns,:) + length(x_signal(2));
          end     
          % Calculate Bit Error Rate
-         BER(ns,:) = T_Errors / T_bits;
+         BER(ns,:) = T_Errors(ns,:) / T_bits(ns,:);
          
      end
          
